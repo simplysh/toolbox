@@ -1,6 +1,6 @@
-import vec2, { Vec2 } from '../vec2.js';
+import vec2, { Vec2, VERSION } from '../vec2.js';
 
-suite('vec2', function() {
+suite(`vec2 #${VERSION}`, function() {
   test('has accessors', function () {
     const result = vec2(2, 7);
 

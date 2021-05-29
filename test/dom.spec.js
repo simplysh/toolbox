@@ -1,6 +1,6 @@
-import { div, span, button, canvas, input, svg, circle } from '../dom.js';
+import { div, span, button, canvas, input, svg, circle, VERSION } from '../dom.js';
 
-suite('dom', function() {
+suite(`dom #${VERSION}`, function() {
   test('can create empty', function () {
     const result = div();
 
