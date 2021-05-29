@@ -11,7 +11,7 @@ class Vec2 {
       }
       if (indices.every(isString)) {
         return indices.reduce((accumulator, value, index) =>
-          ({ ...accumulator, [value]: this.xy[index] }), {});
+          ({ ...accumulator, [value]: this.xy[index % 2] }), {});
       }
     }
 
@@ -142,4 +142,4 @@ const vec2 = (...args) => new Vec2(...args);
 
 export { Vec2, vec2 as default };
 
-export const VERSION = '1.1.0';
+export const VERSION = '1.1.1';
