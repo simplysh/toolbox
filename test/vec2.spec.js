@@ -225,6 +225,42 @@ suite(`vec2 #${VERSION}`, function() {
     expect(b.xy).to.deep.equal([2, 10]);
   });
 
+  test('can subtract vector from x', function () {
+    const a = vec2(2, 1);
+    const b = vec2(5, 3);
+    const c = b.subX(a);
+
+    expect(a.xy).to.deep.equal([2, 1]);
+    expect(b.xy).to.deep.equal([5, 3]);
+    expect(c.xy).to.deep.equal([3, 3]);
+  });
+
+  test('can subtract number from x', function () {
+    const a = vec2(2, 1);
+    const b = a.subX(9);
+
+    expect(a.xy).to.deep.equal([2, 1]);
+    expect(b.xy).to.deep.equal([-7, 1]);
+  });
+
+  test('can subtract vector from y', function () {
+    const a = vec2(2, 1);
+    const b = vec2(5, 3);
+    const c = b.subY(a);
+
+    expect(a.xy).to.deep.equal([2, 1]);
+    expect(b.xy).to.deep.equal([5, 3]);
+    expect(c.xy).to.deep.equal([5, 2]);
+  });
+
+  test('can subtract number from y', function () {
+    const a = vec2(2, 1);
+    const b = a.subY(9);
+
+    expect(a.xy).to.deep.equal([2, 1]);
+    expect(b.xy).to.deep.equal([2, -8]);
+  });
+
   test('has mul method', function () {
     const a = vec2(2, 3);
     const b = vec2(5, 1);

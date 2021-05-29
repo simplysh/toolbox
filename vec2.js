@@ -90,6 +90,20 @@ class Vec2 {
     );
   }
 
+  subX(value) {
+    return new Vec2(
+      this.x - (value.hasOwnProperty('x') ? value.x : value),
+      this.y,
+    );
+  }
+
+  subY(value) {
+    return new Vec2(
+      this.x,
+      this.y - (value.hasOwnProperty('y') ? value.y : value),
+    );
+  }
+
   mul(...args) {
     const other = new Vec2(...args);
 
@@ -142,4 +156,4 @@ const vec2 = (...args) => new Vec2(...args);
 
 export { Vec2, vec2 as default };
 
-export const VERSION = '1.1.1';
+export const VERSION = '1.2.0';
