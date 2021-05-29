@@ -1,12 +1,21 @@
 const lerp = (v0, v1, t) => (1 - t) * v0 + t * v1;
+const isNumber = value => typeof value === 'number' && isFinite(value);
+const isString = value => typeof value === 'string';
+const unwrap = array => Array.isArray(array) && array.length === 1 ? array[0] : array;
 
 class Vec2 {
-  get(index) {
-    if (index !== undefined) {
-      return [this.x, this.y][index];
+  get(...indices) {
+    if (indices.length) {
+      if (indices.every(isNumber)) {
+        return unwrap(indices.map(index => this.xy[index]));
+      }
+      if (indices.every(isString)) {
+        return indices.reduce((accumulator, value, index) =>
+          ({ ...accumulator, [value]: this.xy[index] }), {});
+      }
     }
 
-    return { x: this.x, y: this.y };
+    return this.get('x', 'y');
   }
 
   get len() {
@@ -133,4 +142,4 @@ const vec2 = (...args) => new Vec2(...args);
 
 export { Vec2, vec2 as default };
 
-export const VERSION = '1.0.0';
+export const VERSION = '1.1.0';

@@ -133,6 +133,14 @@ suite(`vec2 #${VERSION}`, function() {
 
     expect(result.get(0)).to.deep.equal(800);
     expect(result.get(1)).to.deep.equal(600);
+    expect(result.get(1, 0, 1)).to.deep.equal([600, 800, 600]);
+  });
+
+  test('can get into named members', function () {
+    const result = vec2(800, 600);
+
+    expect(result.get('width')).to.deep.equal({ width: 800 });
+    expect(result.get('width', 'height')).to.deep.equal({ width: 800, height: 600 });
   });
 
   test('can wrap function', function () {
