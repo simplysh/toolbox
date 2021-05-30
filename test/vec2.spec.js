@@ -271,6 +271,16 @@ suite(`vec2 #${VERSION}`, function() {
     expect(c.xy).to.deep.equal([10, 3]);
   });
 
+  test('has div method', function () {
+    const a = vec2(10, 6);
+    const b = vec2(5, 2);
+    const c = a.div(b);
+
+    expect(a.xy).to.deep.equal([10, 6]);
+    expect(b.xy).to.deep.equal([5, 2]);
+    expect(c.xy).to.deep.equal([2, 3]);
+  });
+
   test('has cross method', function () {
     const a = vec2(2, 5);
     const result = a.cross();

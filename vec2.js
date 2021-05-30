@@ -110,6 +110,12 @@ class Vec2 {
     return new Vec2(this.x * other.x, this.y * other.y);
   }
 
+  div(...args) {
+    const other = new Vec2(...args);
+
+    return new Vec2(this.x / other.x, this.y / other.y);
+  }
+
   abs() {
     return new Vec2(Math.abs(this.x), Math.abs(this.y));
   }
@@ -156,4 +162,4 @@ const vec2 = (...args) => new Vec2(...args);
 
 export { Vec2, vec2 as default };
 
-export const VERSION = '1.2.0';
+export const VERSION = '1.3.0';
