@@ -9,20 +9,20 @@ suite(`vec2 #${VERSION}`, function() {
     expect(result).to.have.property('xy');
   });
 
-  test('can be created from instance', function () {
+  test('can be created from instance', function() {
     const instance = vec2(9, 1);
     const result = vec2(instance);
 
     expect(result.x).to.equal(9);
     expect(result.y).to.equal(1);
-  })
+  });
 
-  test('can be created from pojo', function () {
+  test('can be created from pojo', function() {
     const result = vec2({ x: 4, y: 2 });
 
     expect(result.x).to.equal(4);
     expect(result.y).to.equal(2);
-  })
+  });
 
   test('can create empty', function () {
     const result = vec2();
