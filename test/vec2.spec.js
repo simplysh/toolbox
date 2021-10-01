@@ -1,4 +1,4 @@
-import vec2, { Vec2, VERSION } from '../vec2.js';
+import vec2, { Vec2, VERSION } from '../source/vec2.js';
 
 suite(`vec2 #${VERSION}`, function() {
   test('has accessors', function () {

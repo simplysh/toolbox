@@ -1,8 +1,8 @@
-import { curry, prop, VERSION } from '../functional.js';
+import { curry, prop, VERSION } from '../source/functional.js';
 
 suite(`functional #${VERSION}`, function() {
   suite('curry', function() {
-    test('arguments can be supplied in any manner', function() {
+    test('arguments can be supplied in any groups', function() {
       const sum = (a, b, c) => a + b + c;
       const result = curry(sum);
 

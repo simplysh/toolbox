@@ -1,4 +1,4 @@
-import { lerp, VERSION } from '../math.js';
+import { lerp, VERSION } from '../source/math.js';
 
 suite(`math #${VERSION}`, function() {
   suite('lerp', function() {
