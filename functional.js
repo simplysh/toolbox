@@ -14,5 +14,5 @@ export const curry = fn => curryN(fn.length, [], fn);
 
 export const prop = curry((key, object) => object[key]);
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.1.1';
 
