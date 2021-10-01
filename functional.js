@@ -1,8 +1,6 @@
 export function curryN(len, carry, fn) {
   // if we consumed all the arguments, call the function
-  if (len === 0) {
-    return fn(...carry);
-  }
+  if (len === 0) return fn(...carry);
 
   // allow the remainder of the arguments to be curried
   return function(...args) {
