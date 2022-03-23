@@ -4,23 +4,31 @@ const text = element => state => {
   element.innerHTML = effect(...Object.values(state));
 };
 
+const model = element => {
+  const prop = element.getAttribute('data-model');
+  element.addEventListener('input', event => state[prop] = event.target.value);
+  return state => element.value = state[prop];
+}
+
 export const reactive = (state) => {
   const subscribers = new Map();
 
-  const bind = (element) => {
-    const subscriber = text(element);
-    subscribers.set(element, subscriber);
+  const bind = directive => element => {
+    const subscriber = directive(element);
+    subscribers.set(element, [...subscribers.get(element) ?? [], subscriber]);
     subscriber(state);
   }
 
   const hydrate = () => {
-    document.querySelectorAll('[data-text]').forEach(bind);
+    document.querySelectorAll('[data-text]').forEach(bind(text));
+    document.querySelectorAll('[data-model]').forEach(bind(model));
   }
 
+  // todo: bind all
   var observer = new MutationObserver(function([mutations]) {
     Array.from(mutations.addedNodes)
       .filter(({ nodeType }) => nodeType === 1)
-      .forEach(bind);
+      .forEach(bind(text));
   });
 
   observer.observe(document, {
@@ -33,7 +41,9 @@ export const reactive = (state) => {
       target[prop] = value;
 
       for (const subscriber of subscribers.values()) {
-        subscriber(target);
+        for (const directive of subscriber) {
+          directive(target);
+        }
       }
 
       return true;
@@ -47,4 +57,4 @@ export const reactive = (state) => {
   return new Proxy(state, proxy);
 }
 
-export const VERSION = '0.2.0';
+export const VERSION = '0.3.0';
