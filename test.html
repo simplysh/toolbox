@@ -11,16 +11,25 @@
   <div id="mocha"></div>
   <script src="vendor/mocha.js"></script>
   <script src="vendor/chai.js"></script>
+  <script src="vendor/chai-as-promised.js"></script>
 
   <script type="module" src="test/dom.spec.js"></script>
   <script type="module" src="test/vec2.spec.js"></script>
   <script type="module" src="test/math.spec.js"></script>
   <script type="module" src="test/functional.spec.js"></script>
+  <script type="module" src="test/reactive.spec.js"></script>
 
   <script>
-    mocha.setup('tdd');
-    mocha.growl();
+    mocha.setup({
+      ui: 'tdd',
+      checkLeaks: true,
+      forbidPending: true
+    });
+
+    // mocha.growl();
+
     const { expect } = chai;
+    chai.use(chaiAsPromised);
   </script>
 
   <script defer src="test/run.js"></script>
