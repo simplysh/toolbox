@@ -50,6 +50,10 @@ class Vec2 {
     return new Vec2(this.x / this.len, this.y / this.len);
   }
 
+  neg() {
+    return new Vec2(-this.x, -this.y);
+  }
+
   cross(ccw = false) {
     if(ccw) {
       return new Vec2(-this.y, this.x);
@@ -162,4 +166,4 @@ const vec2 = (...args) => new Vec2(...args);
 
 export { Vec2, vec2 as default };
 
-export const VERSION = '1.3.0';
+export const VERSION = '1.4.0';

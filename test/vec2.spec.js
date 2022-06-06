@@ -87,6 +87,15 @@ suite(`vec2 #${VERSION}`, function() {
     expect(result.xy).to.deep.equal([0, 1]);
   })
 
+  test('can be negated', function () {
+    const a = vec2(2, -7);
+    const result = a.neg();
+
+    expect(a.xy).to.deep.equal([2, -7]);
+    expect(result.xy).to.deep.equal([-2, 7]);
+  })
+
+
   test('has array accessor', function () {
     const result = vec2(7, 2);
 
