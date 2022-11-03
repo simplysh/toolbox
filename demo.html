@@ -5,11 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Reactive Demo</title>
+  <style>
+    .red {
+      color: red;
+    }
+  </style>
 </head>
 <body>
   <label for="name">Name:</label>
   <input id="name" data-model="name" autocomplete="off" />
-  <h1 data-text="`Mi nombre es ${name}`"></h1>
+  <h1 data-text="`Mi nombre es ${name}`" data-class="{ red: name === '' }"></h1>
 
   <script type="module" src="demo.js"></script>
 </body>

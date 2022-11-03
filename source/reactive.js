@@ -16,6 +16,19 @@ const model = element => {
   return state => element.value = state[prop];
 }
 
+const className = element => {
+  const expression = element.getAttribute('data-class');
+  element.removeAttribute('data-class');
+
+  return state => {
+    const effect = new Function(...Object.keys(state), `return ${expression};`);
+
+    for (const [key, value] of Object.entries(effect(...Object.values(state)))) {
+      element.classList.toggle(key, value);
+    }
+  }
+}
+
 export const reactive = (state) => {
   const subscribers = new Map();
 
@@ -29,6 +42,7 @@ export const reactive = (state) => {
   const hydrate = (root = document.body) => {
     document.querySelectorAll('[data-text]').forEach(bind(text));
     document.querySelectorAll('[data-model]').forEach(bind(model));
+    document.querySelectorAll('[data-class]').forEach(bind(className));
   }
 
   const proxy = {
