@@ -1,12 +1,18 @@
-const text = element => state => {
+const text = element => {
   const expression = element.getAttribute('data-text');
-  const effect = new Function(...Object.keys(state), `return ${expression};`);
-  element.innerHTML = effect(...Object.values(state));
-};
+  element.removeAttribute('data-text');
+
+  return state => {
+    const effect = new Function(...Object.keys(state), `return ${expression};`);
+    element.innerHTML = effect(...Object.values(state));
+  }
+}
 
 const model = element => {
   const prop = element.getAttribute('data-model');
+  element.removeAttribute('data-model');
   element.addEventListener('input', event => state[prop] = event.target.value);
+
   return state => element.value = state[prop];
 }
 
@@ -15,26 +21,15 @@ export const reactive = (state) => {
 
   const bind = directive => element => {
     const subscriber = directive(element);
+
     subscribers.set(element, [...subscribers.get(element) ?? [], subscriber]);
     subscriber(state);
   }
 
-  const hydrate = () => {
+  const hydrate = (root = document.body) => {
     document.querySelectorAll('[data-text]').forEach(bind(text));
     document.querySelectorAll('[data-model]').forEach(bind(model));
   }
-
-  // todo: bind all
-  var observer = new MutationObserver(function([mutations]) {
-    Array.from(mutations.addedNodes)
-      .filter(({ nodeType }) => nodeType === 1)
-      .forEach(bind(text));
-  });
-
-  observer.observe(document, {
-    subtree: true,
-    childList: true,
-  });
 
   const proxy = {
     set(target, prop, value, receiver) {
@@ -53,8 +48,7 @@ export const reactive = (state) => {
     }
   }
 
-  hydrate(state);
-  return new Proxy(state, proxy);
-}
+  return [new Proxy(state, proxy), hydrate];
+};
 
-export const VERSION = '0.3.0';
+export const VERSION = '0.4.0';

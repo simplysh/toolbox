@@ -23,8 +23,8 @@ suite(`functional #${VERSION}`, function() {
 
     test('can be partially applied', function() {
       const object = { city: 'tokyo' };
-      const partial = prop('city');
-      const result = partial(object);
+      const city = prop('city');
+      const result = city(object);
 
       expect(result).to.equal('tokyo');
     });
@@ -47,8 +47,8 @@ suite(`functional #${VERSION}`, function() {
 
     test('can be partially applied', function() {
       const object = { city: 'tokyo' };
-      const partial = has('city');
-      const result = partial(object);
+      const hasCity = has('city');
+      const result = hasCity(object);
 
       expect(result).to.equal(true);
     });

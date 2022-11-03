@@ -1,5 +1,10 @@
 import { reactive } from './source/reactive.js';
 
-const state = window.state = reactive({
+const [state, hydrate] = reactive({
   name: 'Andrei',
 });
+
+window.state = state;
+
+hydrate();
+hydrate();

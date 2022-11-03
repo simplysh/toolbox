@@ -30,51 +30,51 @@ suite(`reactive #${VERSION}`, function() {
     });
 
     test('is set when initialised', function() {
-      const state = { city: 'Tokyo' };
+      const [state, hydrate] = reactive({ city: 'Tokyo' });
       const span = document.getElementById('text-test');
       span.setAttribute('data-text', 'city');
 
       expect(span.innerHTML).to.equal('');
+      hydrate(span);
 
-      const result = reactive(state);
       expect(span.innerHTML).to.equal('Tokyo');
     });
 
     test('reacts to state change', function() {
-      const state = { city: 'Tokyo' };
+      const [state, hydrate] = reactive({ city: 'Tokyo' });
       const span = document.getElementById('text-test');
       span.setAttribute('data-text', 'city');
 
       expect(span.innerHTML).to.equal('');
+      hydrate(span);
 
-      const result = reactive(state);
       expect(span.innerHTML).to.equal('Tokyo');
 
-      result.city = 'Kyoto';
+      state.city = 'Kyoto';
       expect(span.innerHTML).to.equal('Kyoto');
     });
 
     test('is set when inserted', function() {
-      const state = { city: 'Nara' };
-      const result = reactive(state);
+      const [state, hydrate] = reactive({ city: 'Nara' });
 
       const span = document.createElement('span');
       span.setAttribute('data-text', 'city');
       span.setAttribute('id', 'text-test-dynamic');
       document.body.appendChild(span);
+      hydrate(span);
 
-      expect(defer(() => span.innerHTML)).to.eventually.equal('Nara');
+      expect(span.innerHTML).to.equal('Nara');
     });
 
     test('can be any expression', function() {
-      const state = { name: 'Yuki', city: 'Sapporo' };
+      const [state, hydrate] = reactive({ name: 'Yuki', city: 'Nara' });
       const span = document.getElementById('text-test');
       span.setAttribute('data-text', '`Hello! I am ${name}, from ${city}.`');
 
       expect(span.innerHTML).to.equal('');
+      hydrate(span);
 
-      const result = reactive(state);
-      expect(span.innerHTML).to.equal('Hello! I am Yuki, from Sapporo.');
+      expect(span.innerHTML).to.equal('Hello! I am Yuki, from Nara.');
     });
   });
 });
