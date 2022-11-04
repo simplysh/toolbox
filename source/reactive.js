@@ -29,6 +29,29 @@ const className = element => {
   }
 }
 
+const show = element => {
+  const expression = element.getAttribute('data-show');
+  element.removeAttribute('data-show');
+
+  return state => {
+    const effect = new Function(...Object.keys(state), `return ${expression};`);
+    const result = effect(...Object.values(state));
+
+    const style = element.style.display;
+    const computed = getComputedStyle(element).display;
+
+    if (result) {
+      if (computed === 'none') {
+        element.style.display = style === 'none' ? '' : 'block';
+      }
+    } else {
+      if (computed !== 'none') {
+        element.style.display = 'none';
+      }
+    }
+  }
+}
+
 const attr = (element, attribute) => {
   const expression = element.getAttribute(`data-${attribute}`);
   element.removeAttribute(`data-${attribute}`);
@@ -53,6 +76,8 @@ export const reactive = (state) => {
     document.querySelectorAll('[data-text]').forEach(bind(text));
     document.querySelectorAll('[data-model]').forEach(bind(model));
     document.querySelectorAll('[data-class]').forEach(bind(className));
+    document.querySelectorAll('[data-show]').forEach(bind(show));
+
     document.querySelectorAll('[data-aria-checked]').forEach(bind(attr, 'aria-checked'));
   }
 
