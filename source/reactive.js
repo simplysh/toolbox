@@ -29,11 +29,21 @@ const className = element => {
   }
 }
 
+const attr = (element, attribute) => {
+  const expression = element.getAttribute(`data-${attribute}`);
+  element.removeAttribute(`data-${attribute}`);
+
+  return state => {
+    const effect = new Function(...Object.keys(state), `return ${expression};`);
+    element.setAttribute(attribute, effect(...Object.values(state)));
+  }
+}
+
 export const reactive = (state) => {
   const subscribers = new Map();
 
-  const bind = directive => element => {
-    const subscriber = directive(element);
+  const bind = (directive, ...options) => element => {
+    const subscriber = directive(element, ...options);
 
     subscribers.set(element, [...subscribers.get(element) ?? [], subscriber]);
     subscriber(state);
@@ -43,6 +53,7 @@ export const reactive = (state) => {
     document.querySelectorAll('[data-text]').forEach(bind(text));
     document.querySelectorAll('[data-model]').forEach(bind(model));
     document.querySelectorAll('[data-class]').forEach(bind(className));
+    document.querySelectorAll('[data-aria-checked]').forEach(bind(attr, 'aria-checked'));
   }
 
   const proxy = {
