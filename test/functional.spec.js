@@ -11,6 +11,16 @@ suite(`functional #${VERSION}`, function() {
       expect(result(1)(2, 3)).to.equal(6);
       expect(result(1)(2)(3)).to.equal(6);
     });
+
+    test('truncates arguments past arity', function() {
+      const initial = function(a, b, c) {
+        return Array.prototype.slice.call(arguments);
+      }
+      const curried = curry(initial);
+      const result = curried(1, 2);
+
+      expect(result(3, 4, 5, 6)).to.deep.equal([1, 2, 3]);
+    });
   });
 
   suite('prop', function() {
@@ -27,6 +37,14 @@ suite(`functional #${VERSION}`, function() {
       const result = city(object);
 
       expect(result).to.equal('tokyo');
+    });
+
+    test('can be used as array mapper', function() {
+      const cities = [{ name: 'tokyo' }, { name: 'kyoto' }, { name: 'nara' }];
+      const name = prop('name');
+      const result = cities.map(name);
+
+      expect(result).to.deep.equal(['tokyo', 'kyoto', 'nara']);
     });
   });
 

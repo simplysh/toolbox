@@ -4,8 +4,9 @@ export function curryN(len, carry, fn) {
 
   // allow the remainder of the arguments to be curried
   return function(...args) {
-    // todo: arity
-    return curryN(len - args.length, [...carry, ...args], fn);
+    const rest = len - args.length;
+    const clamped = rest < 0 ? args.slice(0, rest) : args;
+    return curryN(Math.max(0, rest), [...carry, ...clamped], fn);
   }
 }
 
@@ -31,5 +32,5 @@ export const binary = arity(2);
 export const prop = curry((key, object) => object[key]);
 export const has = curry((key, object) => object.hasOwnProperty(key));
 
-export const VERSION = '0.2.0';
+export const VERSION = '0.3.0';
 
