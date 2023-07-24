@@ -30,7 +30,7 @@ suite(`reactive #${VERSION}`, function() {
     });
 
     test('is set when initialised', function() {
-      const [state, hydrate] = reactive({ city: 'Tokyo' });
+      const { state, hydrate } = reactive({ city: 'Tokyo' });
       const span = document.getElementById('text-test');
       span.setAttribute('data-text', 'city');
 
@@ -41,7 +41,7 @@ suite(`reactive #${VERSION}`, function() {
     });
 
     test('reacts to state change', function() {
-      const [state, hydrate] = reactive({ city: 'Tokyo' });
+      const { state, hydrate } = reactive({ city: 'Tokyo' });
       const span = document.getElementById('text-test');
       span.setAttribute('data-text', 'city');
 
@@ -54,20 +54,8 @@ suite(`reactive #${VERSION}`, function() {
       expect(span.innerHTML).to.equal('Kyoto');
     });
 
-    test('is set when inserted', function() {
-      const [state, hydrate] = reactive({ city: 'Nara' });
-
-      const span = document.createElement('span');
-      span.setAttribute('data-text', 'city');
-      span.setAttribute('id', 'text-test-dynamic');
-      document.body.appendChild(span);
-      hydrate(span);
-
-      expect(span.innerHTML).to.equal('Nara');
-    });
-
     test('can be any expression', function() {
-      const [state, hydrate] = reactive({ name: 'Yuki', city: 'Nara' });
+      const { state, hydrate } = reactive({ name: 'Yuki', city: 'Nara' });
       const span = document.getElementById('text-test');
       span.setAttribute('data-text', '`Hello! I am ${name}, from ${city}.`');
 

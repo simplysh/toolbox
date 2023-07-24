@@ -64,6 +64,7 @@ const attr = (element, attribute) => {
 
 export const reactive = (state) => {
   const subscribers = new Map();
+  const watchers = {};
 
   const bind = (directive, ...options) => element => {
     const subscriber = directive(element, ...options);
@@ -81,8 +82,18 @@ export const reactive = (state) => {
     document.querySelectorAll('[data-aria-checked]').forEach(bind(attr, 'aria-checked'));
   }
 
+  const watch = (property, handler) => {
+    watchers[property] = [...watchers[property] ?? [], handler];
+  }
+
   const proxy = {
     set(target, prop, value, receiver) {
+      if (watchers[prop]) {
+        for (const handler of watchers[prop]) {
+          handler.call(receiver, value, target[prop]);
+        }
+      }
+
       target[prop] = value;
 
       for (const subscriber of subscribers.values()) {
@@ -98,7 +109,7 @@ export const reactive = (state) => {
     }
   }
 
-  return [new Proxy(state, proxy), hydrate];
+  return { state: new Proxy(state, proxy), hydrate, watch };
 };
 
-export const VERSION = '0.4.0';
+export const VERSION = '0.5.2';
