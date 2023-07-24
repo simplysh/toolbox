@@ -1,6 +1,6 @@
-import { curry, prop, has, arity, unary, binary, VERSION } from '../source/functional.js';
+import { curry, prop, has, arity, unary, binary } from '../source/functional.js';
 
-suite(`functional #${VERSION}`, function() {
+suite('functional', function() {
   suite('curry', function() {
     test('arguments can be supplied in any groups', function() {
       const sum = (a, b, c) => a + b + c;

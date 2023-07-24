@@ -32,5 +32,3 @@ export const binary = arity(2);
 export const prop = curry((key, object) => object[key]);
 export const has = curry((key, object) => object.hasOwnProperty(key));
 
-export const VERSION = '0.3.0';
-

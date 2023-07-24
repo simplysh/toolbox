@@ -112,4 +112,3 @@ export const reactive = (state) => {
   return { state: new Proxy(state, proxy), hydrate, watch };
 };
 
-export const VERSION = '0.5.2';

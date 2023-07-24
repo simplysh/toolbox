@@ -1,4 +1,4 @@
-import { reactive, VERSION } from '../source/reactive.js';
+import { reactive } from '../source/reactive.js';
 
 const wait = delay => new Promise((resolve) => setTimeout(resolve, delay));
 const defer = async (check) => {
@@ -15,7 +15,7 @@ const defer = async (check) => {
   throw new Error('Timed out waiting for change.');
 }
 
-suite(`reactive #${VERSION}`, function() {
+suite('reactive', function() {
   suite('text directive', function() {
     setup(function() {
       const span = document.createElement('span');

@@ -149,4 +149,3 @@ export const mask = el.bind(void 0, 'mask');
 export const defs = el.bind(void 0, 'defs');
 export const path = el.bind(void 0, 'path');
 
-export const VERSION = '1.0.0';
