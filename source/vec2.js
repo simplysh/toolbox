@@ -134,7 +134,7 @@ class Vec2 {
       case 1:
         [this.x = 0, this.y = this.x] = args[0] instanceof Vec2
           ? args[0].xy
-          : args[0].hasOwnProperty('x')
+          : args[0]['x']
             ? [args[0]['x'], args[0]['y']]
             : [].concat(args[0]).map(parseFloat);
 
