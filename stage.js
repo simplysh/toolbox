@@ -27,4 +27,8 @@ class Example extends Paper {
   }
 }
 
-new Example(canvas).loop();
+const example = new Example(canvas);
+
+window.example = example;
+
+example.loop();
