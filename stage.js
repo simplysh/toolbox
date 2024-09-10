@@ -1,4 +1,4 @@
-import { Paper } from './source/draw.js';
+import { Paper, Camera } from './source/draw.js';
 
 const canvas = document.createElement('canvas');
 
@@ -11,8 +11,13 @@ class Example extends Paper {
   offset = 0;
   direction = 1;
 
-  constructor(canvas, options) {
-    super(canvas, options);
+  camera = new Camera(canvas);
+
+  constructor(canvas) {
+    super(canvas, { origin: [0.5, 0.5] });
+
+    this.camera.anchor = [0.5, 0.5];
+    this.camera.transform.scale = [0.25, 0.25];
   }
 
   update() {
@@ -24,6 +29,7 @@ class Example extends Paper {
 
   draw() {
     this.circle(this.offset, 0, 100);
+    this.rect(...this.camera.position, ...this.camera.size, this.camera.transform);
   }
 }
 
