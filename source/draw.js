@@ -10,6 +10,8 @@ export class Paper {
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
 
+    canvas.setAttribute('tabIndex', canvas.getAttribute('tabIndex') ?? -1);
+
     this.world = {
       origin,
     };
@@ -27,7 +29,7 @@ export class Paper {
     this.context.save();
 
     this.context.scale(...transform.scale);
-    this.context.rotate(transform.rotation);
+    this.context.rotate(transform.rotation * Math.PI / 180);
     this.context.translate(...transform.translation);
 
     this.context.beginPath();
@@ -90,12 +92,12 @@ export class Camera {
     this._x = value;
   }
 
-  set y(value) {
-    this._y = value;
-  }
-
   get y() {
     return this._y - this.height * this.anchor[1];
+  }
+
+  set y(value) {
+    this._y = value;
   }
 
   get size() {
