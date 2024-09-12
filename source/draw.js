@@ -17,6 +17,7 @@ export class Paper {
     };
 
     this.activeCamera = this.defaultCamera = new Camera(canvas);
+    this.defaultCamera.anchor = origin;
   }
 
   circle(x, y, radius) {
@@ -90,6 +91,7 @@ export class Camera {
 
   set x(value) {
     this._x = value;
+    return value;
   }
 
   get y() {
@@ -98,6 +100,7 @@ export class Camera {
 
   set y(value) {
     this._y = value;
+    return value;
   }
 
   get size() {
